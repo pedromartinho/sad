@@ -1,0 +1,109 @@
+> install.packages("ggplot2")
+Installing package into ‘C:/Users/Francisco/Documents/R/win-library/3.4’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/ggplot2_2.2.1.zip'
+Content type 'application/zip' length 2784566 bytes (2.7 MB)
+downloaded 2.7 MB
+
+package ‘ggplot2’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Francisco\AppData\Local\Temp\RtmpSm6C20\downloaded_packages
+> library(ggplot2)
+> install.packages("readr")
+Installing package into ‘C:/Users/Francisco/Documents/R/win-library/3.4’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/readr_1.1.1.zip'
+Content type 'application/zip' length 1270842 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘readr’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Francisco\AppData\Local\Temp\RtmpSm6C20\downloaded_packages
+> library(readr)
+> crabs <- read_csv("crabs.csv")
+Parsed with column specification:
+cols(
+  sp = col_character(),
+  sex = col_character(),
+  index = col_integer(),
+  FL = col_double(),
+  RW = col_double(),
+  CL = col_double(),
+  CW = col_double(),
+  BD = col_double()
+)
+> crabsCluster <- kmeans(crabs[, 5:6], 3, nstart= 30)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> crabsCluster <- kmeans(crabs[, 5:6], 5, nstart= 30)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> crabsCluster <- kmeans(crabs[, 5:6], 2, nstart= 10)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> crabsCluster <- kmeans(crabs[, 5:6], 2, nstart= 50)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> crabsCluster <- kmeans(crabs[, 3:5], 2, nstart= 20)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> crabsCluster <- kmeans(crabs[, 3:5], 2, nstart= 50)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> ggplot(crabs, aes(FL, CW, color = sex)) + geom_point()
+> ggplot(crabs, aes(RW, BD, color = sp)) + geom_point()
+> intracluster = c("complete", "average", "centroid")
+> crabsCluster <- kmeans(crabs[, 5:6], 3, nstart= 20)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> intracluster = c("complete", "average", "centroid")
+> intercluster = c("single", "complete", "average", "centroid", "aveToCent", "hausdorff")
+> install.packages("clv")
+Installing package into ‘C:/Users/Francisco/Documents/R/win-library/3.4’
+(as ‘lib’ is unspecified)
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.4/clv_0.3-2.1.zip'
+Content type 'application/zip' length 173036 bytes (168 KB)
+downloaded 168 KB
+
+package ‘clv’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Francisco\AppData\Local\Temp\RtmpSm6C20\downloaded_packages
+> library(clv)
+> crabsCluster <- kmeans(craps, 3, nstart= 20)
+> crabsCluster$cluster <- as.factor(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> View(craps)
+> intracluster = c("complete", "average", "centroid")
+> intercluster = c("single", "complete", "average", "centroid", "aveToCent", "hausdorff")
+> crabsCluster <- kmeans(craps, 3, nstart= 20)
+> crabsCluster$cluster <- as.vector(crabsCluster$cluster)
+> ggplot(crabs, aes(FL, CW, color = crabsCluster$cluster)) + geom_point()
+> intracluster = c("complete", "average", "centroid")
+> intercluster = c("single", "complete", "average", "centroid", "aveToCent", "hausdorff")
+> cls.scatt <- cls.scatt.data(craps, crabsCluster$cluster, dist = "manhattan")
+> dunn1 <- clv.Dunn(cls.scatt, intracluster, intercluster)
+> View(dunn1)
+> dunn1
+            comp       ave     cent
+sin   0.04449649 0.1380881 0.190746
+comp  1.64637002 5.1092585 7.057602
+ave   0.69396276 2.1536077 2.974855
+cent  0.69236013 2.1486342 2.967985
+aveto 0.69236013 2.1486342 2.967985
+haus  0.72833724 2.2602836 3.122211
+Loading required package: cluster
+Loading required package: class
+
+> davies1 <- clv.Davies.Bouldin(cls.scatt, intracluster, intercluster)
+> View(davies1)
+> davies1
+           comp        ave      cent
+sin   34.495951 11.7433228 8.5973939
+comp   1.017610  0.3455637 0.2530141
+ave    2.380670  0.8081542 0.5917205
+cent   2.396340  0.8135194 0.5956475
+aveto  2.396296  0.8135042 0.5956365
+haus   2.104003  0.7032833 0.5152399
